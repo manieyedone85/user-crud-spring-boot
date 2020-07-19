@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "0c7c1c0a-27f5-47ef-8384-a5796f7d3172",
+		"name": "User-CRUD-Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{schema}}{{url}}/tutorial/user",
+					"host": [
+						"{{schema}}{{url}}"
+					],
+					"path": [
+						"tutorial",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Application Version",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{schema}}{{url}}/tutorial/version",
+					"host": [
+						"{{schema}}{{url}}"
+					],
+					"path": [
+						"tutorial",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"mani\",\n\t\"gender\":\"Male\",\n\t\"country\":\"IN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{schema}}{{url}}/tutorial/user",
+					"host": [
+						"{{schema}}{{url}}"
+					],
+					"path": [
+						"tutorial",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Mani\",\n\t\"gender\":\"Male\",\n\t\"country\":\"IN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{schema}}{{url}}/tutorial/user/5f148262fd3ba419d7d1b66b",
+					"host": [
+						"{{schema}}{{url}}"
+					],
+					"path": [
+						"tutorial",
+						"user",
+						"5f148262fd3ba419d7d1b66b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "userId",
+						"value": "5f148262fd3ba419d7d1b66b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{schema}}{{url}}/tutorial/user/5f148262fd3ba419d7d1b66b",
+					"host": [
+						"{{schema}}{{url}}"
+					],
+					"path": [
+						"tutorial",
+						"user",
+						"5f148262fd3ba419d7d1b66b"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

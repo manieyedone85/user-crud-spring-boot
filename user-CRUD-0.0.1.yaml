@@ -1,0 +1,317 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: Tutorial User CRUD API Service
+  description: |
+    This is a Tutorial API service. it contains documentation for all the endpoints in Tutorial user.
+
+    # Introduction
+      Tutorial API Service provides user related services.
+      1. User Operations and Authentication
+        -  a. Client Authentication
+        -  b. User Operations
+        -  c. Token Refresh Operations
+      2. Core Capabilities
+        - Application
+        - Users
+          
+    
+    ### User
+      This User related service.
+    # Authentication
+
+    To access core resources, you will need two access token. these access token grants limited access to core resources. We offer two access token Client Token and User Token, Based on the request you need only client token or both client token and user token.
+
+    The three levels of authentication
+      - Application Authentication
+      - Client Authentication
+      - User Authentication
+
+
+servers:
+  - url: 'http://localhost:8081'
+    description: local
+x-tagGroups:
+  - name: User
+    tags:
+      - User
+  - name: Version
+    tags:
+      - Application
+tags:
+
+  - name: User
+    description: User related service add/edit/read/delete.
+
+  - name: Application
+    description: |
+      Describe the application vesion and application name. This endpoint can be used as a health check to make sure the application has started.
+
+paths:
+  /tutorial/version:
+    get:
+      summary: Get application Version
+      operationId: version
+      tags:
+        - Application
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X GET "http://localhost:8081/tutorial/version" \
+            -H "accept: application/json"
+      responses:
+        '200':
+          description: Application version and name
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  
+  
+  /tutorial/user:
+    get:
+      summary: Get all users
+      description: Get all users.
+      operationId: getUser
+      security:
+        - ClientAuthentication: []
+         
+      tags:
+        - User
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X GET \
+            "http://localhost:8081/tutorial/user" \
+            -H "Client-Token: CLIENT_TOKEN" 
+      responses:
+        '200':
+          description: Successfully retrieved user datas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+    
+    post:
+      summary: Save user information.
+      operationId: createUser
+      security:
+        - ClientAuthentication: []
+      tags:
+        - User
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X GET \
+            "http://localhost:8081/tutorial/user" \
+            -H "accept: application/json" \
+            -H "Client-Token: CLIENT_TOKEN" 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Successfully Created user info
+          headers:
+            id:
+              description: Unique UUID for each request to be tracked in the back end
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /tutorial/user/{userId}:
+    get:
+      summary: Get user information by userId.
+      operationId: getUserById
+      tags:
+        - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: userId of the user to be retrieved
+          schema:
+            type: string
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X GET \
+            "http://localhost:8081/tutorial/user{userId}" \
+            -H "accept: application/json" \
+            -H "Client-Token: CLIENT_TOKEN" 
+      responses:
+        '200':
+          description: Successfully Retrieved user info
+          headers:
+            id:
+              description: Unique UUID for each request to be tracked in the back end
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    patch:
+      summary: Update user information.
+      operationId: UpdateUser
+      tags:
+        - User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: user Id of the user to be retrieved
+          schema:
+            type: string
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X PATCH \
+            "http://localhost:8081/tutorial/user{userId}" \
+            -H "accept: application/json" \
+            -H "Client-Token: CLIENT_TOKEN" 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Successfully Updated user info
+          headers:
+            id:
+              description: Unique UUID for each request to be tracked in the back end
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    delete:
+      summary: Delete user.
+      description: Delete a user from db.
+      operationId: deleteUser
+      security:
+        - ClientAuthentication: []
+          UserAuthentication: []
+      parameters: 
+        - name: userId
+          in: path
+          required: true
+          description: user Id of the user to be retrieved
+          schema:
+            type: string
+      tags:
+        - User
+      x-code-samples:
+        - lang: 'Shell'
+          source: |
+            curl -X DELETE \
+            "http://localhost:8081/tutorial/user{userId}" \
+            -H "Client-Token: CLIENT_TOKEN" \
+            -H "Authorization: Bearer USER_TOKEN"
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+  
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Get access to data while protecting your account credentials.
+    ClientAuthentication:
+      description: >
+        Token to authenticate client.
+      type: apiKey
+      name: Client-Token
+      in: header
+  schemas:
+    Project:
+      type: object
+      required:
+        - version
+        - name
+      properties:
+        name:
+          type: string
+          example: user-crud
+          description: name of the service
+        version:
+          type: string
+          example: 0.0.1
+          description: version of active running the service
+    UserRequest:
+      type: object
+      required:
+        - name
+        - gender
+        - country
+      properties:
+        name:
+          type: string
+          example: mani
+          description: name of the user
+        gender:
+          type: string
+          enum: 
+            - Male
+            - Female
+            - Others
+        country:
+          type: string
+          example: IN
+    UserResponse:
+      type: object
+      required:
+        - name
+        - gender
+        - country
+      properties:
+        id: 
+          type: string
+        name:
+          type: string
+          example: mani
+          description: name of the user
+        gender:
+          type: string
+          enum: 
+            - Male
+            - Female
+            - Others
+        country:
+          type: string
+          example: IN
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+            - DELETED
+    ApiException:
+      type: object
+      properties:
+        httpStatus:
+          type: string
+          example: BAD_REQUEST
+        responseCode:
+          type: integer
+          example: 401
+        code:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: The given request is invalid.
+  

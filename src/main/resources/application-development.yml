@@ -1,0 +1,18 @@
+project:
+  name: @project.name@
+  version: @project.version@
+
+spring:
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+  codec:
+    max-in-memory-size: 50MB
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user_CRUD
+
+server:
+  port: 8080
+
