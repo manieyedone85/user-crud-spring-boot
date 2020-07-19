@@ -3,7 +3,7 @@ pipeline {
             // MAKE IMAGE NAME, CONTAINER NAME PREFIX, REPO NAME as same
             REPOSITORY_NAME = "user-crud"
             // THE BELOW SERVER URL IS API DEVELOPMENT INSTANCE
-            DEPLOYMENT_SERVER_URL = "140.238.194.24"
+            DEPLOYMENT_SERVER_URL = "localhost"
             IMAGE_NAME = "user-crud-api-local"
             CONTAINER_NAME = "user-crud-api-local"
             CONTAINER_PORT = "8081"
