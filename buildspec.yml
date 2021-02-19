@@ -1,5 +1,8 @@
-version: 0.2
-
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/apache-tomcat-8.5.35/webapps
 phases:
   build:
     commands:
@@ -12,3 +15,12 @@ artifacts:
   files:
     - target/kchange-api.jar
   discard-paths: yes
+hooks:
+  ApplicationStart:
+    - location: /opt/apache-tomcat-8.5.35/bin/startup.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: /opt/apache-tomcat-8.5.35/bin/shutdown.sh
+      timeout: 300
+      runas: root
