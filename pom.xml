@@ -60,6 +60,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>user-curd</finalName>
 	</build>
 
 </project>
