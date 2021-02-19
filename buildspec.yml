@@ -10,5 +10,6 @@ phases:
       - echo Build completed successfully
 artifacts:
   files:
+    - AppSpec.yml
     - target/user-curd.jar
   discard-paths: yes
