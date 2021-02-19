@@ -10,5 +10,5 @@ phases:
       - echo Build completed successfully
 artifacts:
   files:
-    - target/kchange-api.jar
+    - /opt/apache-tomcat-8.5.35/webapps/kchange-api.jar
   discard-paths: yes
