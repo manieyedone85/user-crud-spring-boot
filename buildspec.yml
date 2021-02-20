@@ -12,5 +12,6 @@ artifacts:
   files:
     - appspec.yml
     - target/user-curd.war
-    - scripts/*.sh
+    - scripts/shutdown.sh
+    - scripts/startup.sh    
   discard-paths: yes
