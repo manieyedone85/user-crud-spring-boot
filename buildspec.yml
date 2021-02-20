@@ -11,5 +11,5 @@ phases:
 artifacts:
   files:
     - AppSpec.yml
-    - target/user-curd.jar
+    - target/user-curd.war
   discard-paths: yes
