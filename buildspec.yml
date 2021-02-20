@@ -10,6 +10,6 @@ phases:
       - echo Build completed successfully
 artifacts:
   files:
-    - AppSpec.yml
+    - appspec.yml
     - target/user-curd.war
   discard-paths: yes
