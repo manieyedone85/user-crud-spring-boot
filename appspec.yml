@@ -3,12 +3,3 @@ os: linux
 files:
   - source: /
     destination: /opt/apache-tomcat-8.5.35/webapps/
-hooks:
-  ApplicationStart:
-    - location: scripts/startup.sh
-      timeout: 300
-      runas: root
-  ApplicationStop:
-    - location: scripts/shutdown.sh
-      timeout: 300
-      runas: root
