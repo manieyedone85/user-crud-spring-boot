@@ -5,10 +5,10 @@ files:
     destination: /opt/apache-tomcat-8.5.35/webapps/
 hooks:
   ApplicationStart:
-    - location: /startup.sh
+    - location: scripts/startup.sh
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: /shutdown.sh
+    - location: scripts/shutdown.sh
       timeout: 300
       runas: root
