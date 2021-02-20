@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Entered the build phase...
+      - echo Entered the build phase...vineeth
       - mvn clean package
   post_build:
     commands:
