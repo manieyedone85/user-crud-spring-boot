@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /opt/apache-tomcat-8.5.35/webapps
+  - source: /target/user-crud.war
+    destination: /opt/apache-tomcat-8.5.35/webapps/
 hooks:
   ApplicationStart:
     - location: /opt/apache-tomcat-8.5.35/bin/startup.sh
